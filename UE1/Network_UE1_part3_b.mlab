@@ -1,5 +1,5 @@
 // MDL v1 utf8
-mevislabVersion = 3.4.2
+mevislabVersion = 4.1.3.7
 network  {
   watchlist = ""
 }
@@ -17,7 +17,7 @@ module LoadAny {
   }
   fields  {
     instanceName = LoadAny
-    name = "$(HOME)/Desktop/UNI-Fächer/Methods for Datageneration and Analytics in Medicine and Life Sciences/Dataset_UE1_part3/aneurysm.vti"
+    name = $(HOME)/Documents/Uni/04_Biomedical_Engineering/2025_26_WS/Data_Generation/Uebung/UE1_materials/UE1/Dataset_UE1_part3/aneurysm.mhd
     verbose = FALSE
     analyzeHeader = TRUE
     allowBioFormats = FALSE
@@ -29,9 +29,10 @@ module RegionGrowingMacro {
     moduleGroupName = ""
     windows  {
       window _default {
-        geometry = "116 109 1175 576"
-        sizeHint = "1175 576"
-        wasOpen = no
+        geometry = "854 29 851 881"
+        relativePosition = "0.2501 -0.4660"
+        sizeHint = "1146 574"
+        wasOpen = yes
       }
     }
   }
@@ -112,8 +113,8 @@ module View2D {
     sliceOrigin = "0 0"
     useShaders = TRUE
     useManagedInteraction = FALSE
-    lutCenter = 762
-    lutWidth = 1524
+    lutCenter = 250
+    lutWidth = 2548
     annotationOn = TRUE
     annotationMode = ANNO_MODE_AUTO
     annotationSizeMode = ANNO_SHOW_DETAILED
@@ -124,15 +125,65 @@ module View2D {
     borderOn = FALSE
     borderColor = "0.899999976158142 0.899999976158142 0.899999976158142"
     valueHighPrecision = TRUE
-    showColorChannelValues = FALSE
-    colorChannelSeparator = " / "
     maxPrecision = 4
     enableSlicing = TRUE
+    showColorChannelValues = FALSE
+    colorChannelSeparator = " / "
     useRelativeLUTIfNoInputImage = TRUE
+  }
+}
+module SoView2DOverlay {
+  internal  {
+    frame = "629 149 168 56"
+    moduleGroupName = ""
+    showNetworkPanel = true
+  }
+  fields  {
+    instanceName = SoView2DOverlay
+    interactionProviderID = ""
+    drawingOn = TRUE
+    editingOn = TRUE
+    fixZOn = TRUE
+    color = "1 1 1"
+    selectionTolerance = 4
+    needsValidVoxel = TRUE
+    button1 = IGNORED
+    button2 = IGNORED
+    button3 = IGNORED
+    shift = IGNORED
+    control = IGNORED
+    alt = IGNORED
+    wantsAllEvents = TRUE
+    wantsKeyEvents = TRUE
+    wantsMouseWheelEvents = FALSE
+    setEventHandled = FALSE
+    ignoreHandledEvents = FALSE
+    createNewMode = FALSE
+    renderOnSlab = TRUE
+    clipToSlice = TRUE
+    cursorShape = UNDEFINED_CURSOR
+    overlayName = ""
+    cacheTextures = TRUE
+    blendMode = BLEND_ADD
+    overwriteCurrentTimePoint = FALSE
+    timePoint = 0
+    maxTimePoint = 0
+    filterMode = FILTER_LINEAR
+    inheritFilterMode = TRUE
+    lutPrecision = VIEW2D_LUT_AUTO
+    alphaFactor = 1
+    baseColor = "1 0.333333343267441 0"
+    useWorldCoords = TRUE
+    applyLut = TRUE
+    isCheckerTiling = FALSE
+    checkerTileSize = 2
+    areCheckerTilesInverted = FALSE
   }
 }
 connections  {
   RegionGrowingMacro.inImage = LoadAny.outImage
-  View2D.inImage = RegionGrowingMacro.outMask
+  View2D.inImage = LoadAny.outImage
+  View2D.inInvPreLUT = SoView2DOverlay.self
+  SoView2DOverlay.image = RegionGrowingMacro.outMask
 }
 networkModel = ""
